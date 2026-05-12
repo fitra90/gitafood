@@ -26,7 +26,7 @@ gitafoodApp.controller('FormTransaksiController', ['$scope', '$http', '$location
         $location.path('/transaksi');
     };
 
-    // Load Barang Data for Select
+    // Load Data for Select
     $scope.getBarangOptions = function () {
         $http.get(API_URL + '/barang?per_page=1000') // Get all without small pagination for select box
             .then(function(response) {
@@ -50,7 +50,7 @@ gitafoodApp.controller('FormTransaksiController', ['$scope', '$http', '$location
             return;
         }
 
-        // Find selected barang
+        // Find selected item
         var selectedBarang = $scope.barangList.find(function(b) {
             return b.id === $scope.formData.barang_id;
         });
@@ -78,7 +78,7 @@ gitafoodApp.controller('FormTransaksiController', ['$scope', '$http', '$location
                 $scope.loading = false;
                 $scope.successMessage = response.data.message || 'Transaksi berhasil dicatat!';
                 
-                // Refresh list of barang to get latest stock
+                // Refresh list to get latest stock
                 $scope.getBarangOptions();
 
                 // Reset form partially

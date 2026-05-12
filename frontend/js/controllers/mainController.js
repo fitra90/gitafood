@@ -63,14 +63,14 @@ gitafoodApp.controller('MainController', ['$scope', '$http', '$window', '$locati
         });
     };
 
-    // Load Barang Data
+    // Load Data Barang
     $scope.barangList = [];
     $scope.pagination = {};
     
     $scope.getBarang = function (pageUrl) {
         var url = pageUrl || (API_URL + '/barang?per_page=5');
         $http.get(url).then(function(response) {
-            $scope.barangList = response.data.data; // Laravel paginator wraps items in 'data'
+            $scope.barangList = response.data.data;
             $scope.pagination = {
                 current_page: response.data.current_page,
                 last_page: response.data.last_page,

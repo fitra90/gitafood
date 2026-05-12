@@ -1,10 +1,8 @@
-// AngularJS App Module
 var gitafoodApp = angular.module('gitafoodApp', ['ngRoute']);
 
-// Constants
 gitafoodApp.constant('API_URL', 'http://localhost:8000/api');
 
-// Route Configuration
+// Route 
 gitafoodApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     // Use hash bang mode for better compatibility
     $locationProvider.hashPrefix('');
@@ -39,10 +37,8 @@ gitafoodApp.config(['$routeProvider', '$locationProvider', function ($routeProvi
         });
 }]);
 
-// App Initialization and Route Guard
 gitafoodApp.run(['$rootScope', '$window', '$location', function ($rootScope, $window, $location) {
 
-    // Handle route changes for authentication
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
         var token = $window.localStorage.getItem('api_token');
         var isLoginPage = next.$$route && next.$$route.originalPath === '/';
@@ -57,12 +53,10 @@ gitafoodApp.run(['$rootScope', '$window', '$location', function ($rootScope, $wi
         // Redirect to dashboard if already logged in and trying to access login
         if (isLoginPage && token) {
             event.preventDefault();
-            // Use replace to avoid adding to history
             $location.path('/dashboard').replace();
         }
     });
 
-    // Check on app init if user should be redirected
     var token = $window.localStorage.getItem('api_token');
     var currentPath = $location.path();
 
