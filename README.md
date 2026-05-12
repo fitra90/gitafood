@@ -2,15 +2,15 @@
 
 ## 📋 Deskripsi Proyek
 
-Proyek ini adalah aplikasi full-stack yang dirancang untuk keperluan tes interview. Aplikasi ini menunjukkan implementasi dari teknologi-teknologi populer dalam membangun aplikasi web modern.
+Proyek ini adalah aplikasi full-stack yang dirancang untuk keperluan tes interview.
 
 ## 🛠️ Stack Teknologi
 
 | Layer | Teknologi | Versi |
 |-------|-----------|-------|
-| **Backend** | Laravel | 8 |
+| **Backend** | Laravel | 10 |
 | **Frontend** | AngularJS | 1.8 |
-| **Database** | MySQL | 8 |
+| **Database** | MariaDB | 10.4.32 |
 
 ## 📋 Persyaratan Sistem
 
@@ -19,14 +19,14 @@ Sebelum memulai, pastikan Anda telah menginstal:
 - **PHP** >= 7.3
 - **Composer** (untuk dependency management Laravel)
 - **Node.js & npm** (opsional, jika menggunakan build tools)
-- **MySQL Server** 8.0+
+- **MariaDB** 8.0+
 
 ## 🚀 Instalasi & Setup
 
 ### 1. Clone Repository
 
 ```bash
-cd c:\xampp\htdocs\projects\
+cd <project-folder>
 git clone <repository-url>
 cd gitafood
 ```
@@ -54,7 +54,7 @@ php artisan key:generate
 # Jalankan migration
 php artisan migrate
 
-# Seeding data (opsional)
+# Seeding data 
 php artisan db:seed
 ```
 
@@ -79,8 +79,6 @@ CREATE DATABASE gitafood CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 # Start Laravel development server
 php artisan serve
 
-# Atau akses melalui XAMPP
-# http://localhost/projects/gitafood/public
 ```
 
 ## 🔧 Konfigurasi
@@ -113,11 +111,10 @@ DB_PASSWORD=
    Akses aplikasi di `http://localhost:8000`
 
 2. **AngularJS Integration**
-   - Frontend script terletak di `resources/js/` atau `public/js/`
-   - Controllers, services, dan directives mengikuti struktur AngularJS
+   - Frontend script terletak di `frontend`
 
 3. **API Endpoints**
-   - Endpoints didefinisikan di `routes/api.php` atau `routes/web.php`
+   - Endpoints didefinisikan di `routes/api.php`
 
 ## 🔐 Keamanan
 

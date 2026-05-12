@@ -42,6 +42,12 @@ return [
         ],
     ],
 
+    'api' => [
+        'driver' => 'token',
+        'provider' => 'users',
+        'hash' => false, // or true if you want hashed tokens
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | User Providers
