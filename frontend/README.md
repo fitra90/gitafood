@@ -57,4 +57,3 @@ Password: password
 - **Authentication**: Login, Logout (dengan Route Guards untuk mencegah akses tanpa Token).
 - **Master Data Barang**: CRUD Data Barang lengkap dengan paginasi.
 - **Transaksi Inventaris**: Pencatatan Barang Masuk & Keluar dengan validasi otomatis terhadap Stok Master.
-- **Token Management**: JWT Token tersimpan aman di `localStorage` dan diinjeksi via `AuthInterceptor`.

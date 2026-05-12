@@ -70,7 +70,3 @@ Jalankan kedua server berikut di terminal terpisah:
 ## 🔑 Login Default
 - **Email:** admin@example.com
 - **Password:** password
-
-## 👤 Author
-
-fitra90@gmail.com
