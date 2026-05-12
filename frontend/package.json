@@ -1,0 +1,20 @@
+{
+    "name": "gitafood-frontend",
+    "version": "1.0.0",
+    "description": "GitaFood AngularJS 1.8 Frontend",
+    "main": "index.html",
+    "scripts": {
+        "start": "http-server -p 8080 -o",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "angularjs",
+        "bootstrap",
+        "frontend"
+    ],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "http-server": "^14.1.1"
+    }
+}

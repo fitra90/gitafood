@@ -27,7 +27,7 @@ Sebelum memulai, pastikan Anda telah menginstal:
 
 ```bash
 cd <project-folder>
-git clone <repository-url>
+git clone https://github.com/fitra90/gitafood
 cd gitafood
 ```
 
@@ -104,24 +104,27 @@ DB_PASSWORD=
 
 ## 💻 Cara Menggunakan
 
-1. **Start Development Server**
+1. **Start Backend Development Server**
    ```bash
+   cd backend
    php artisan serve
    ```
-   Akses aplikasi di `http://localhost:8000`
+   Akses backend di `http://localhost:8000`
 
-2. **AngularJS Integration**
+2. **Start Frontend Development Server**
+   ```bash
+   cd frontend
+   npx http-server -p 8080
+   ```
+   Akses frontend di `http://localhost:8080`
+
+3. **AngularJS Integration**
    - Frontend script terletak di `frontend`
+   - Gunakan `npx http-server` untuk menjalankan development server
 
-3. **API Endpoints**
+4. **API Endpoints**
    - Endpoints didefinisikan di `routes/api.php`
-
-## 🔐 Keamanan
-
-- Jangan commit file `.env` ke repository
-- Gunakan environment variables untuk sensitive data
-- Selalu gunakan CSRF tokens di form Laravel
-- Validate semua input dari user
+   - Pastikan backend berjalan di `http://localhost:8000`
 
 ## 📝 Database Migrations
 
@@ -129,57 +132,8 @@ DB_PASSWORD=
 # Jalankan semua migrations
 php artisan migrate
 
-# Rollback last batch
-php artisan migrate:rollback
-
-# Fresh migration (reset)
-php artisan migrate:fresh
 ```
-
-## 🧪 Testing
-
-```bash
-# Jalankan unit tests
-php artisan test
-
-# Atau menggunakan phpunit
-phpunit
-```
-
-## 📚 Dokumentasi Referensi
-
-- [Laravel 8 Documentation](https://laravel.com/docs/8.x)
-- [AngularJS 1.8 Documentation](https://docs.angularjs.org/api)
-- [MySQL 8 Documentation](https://dev.mysql.com/doc/refman/8.0/en/)
-
-## 🤝 Kontribusi
-
-Untuk berkontribusi pada proyek ini:
-
-1. Fork repository
-2. Buat branch feature (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push ke branch (`git push origin feature/AmazingFeature`)
-5. Buat Pull Request
-
 
 ## 👤 Author
 
 fitra90@gmail.com
-
-## ⚠️ Troubleshooting
-
-### Masalah: Port 8000 sudah digunakan
-```bash
-php artisan serve --port=8001
-```
-
-### Masalah: Database connection error
-- Pastikan MySQL service sudah berjalan
-- Periksa credentials di file `.env`
-- Pastikan database sudah dibuat
-
-### Masalah: Permission denied pada storage
-```bash
-chmod -R 775 storage bootstrap/cache
-```
