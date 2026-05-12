@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\TransaksiBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Public routes
+Route::get('/', function () {
+    return response()->json(['message' => 'running']);
 });
+
+// Protected routes (require api_token)
+Route::middleware('auth:api')->group(function () {
+    Route::get('/user', [LoginController::class, 'user']);
+    Route::post('/logout', [LoginController::class, 'logout']);
+
+    // Barang
+    Route::get('/barang', [BarangController::class, 'index']);
+    Route::put('/barang/{barang}', [BarangController::class, 'update']);
+    Route::delete('/barang/{barang}', [BarangController::class, 'destroy']);
+
+    // transaksi barang
+    Route::get('/transaksi_barang', [TransaksiBarangController::class, 'index']);
+    Route::post('/transaksi_barang', [TransaksiBarangController::class, 'store']);
+});
+

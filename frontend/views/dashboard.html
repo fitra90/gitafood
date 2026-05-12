@@ -2,23 +2,86 @@
     <div class="col-md-12">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h2 class="card-title mb-4">Dashboard</h2>
-                <div ng-if="user">
-                    <p><strong>Welcome,</strong> {{ user.name }}</p>
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-                    <button class="btn btn-danger" ng-click="logout()">Logout</button>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="card-title mb-0">Dashboard</h2>
+                    <button class="btn btn-danger" ng-click="logout()" ng-disabled="loading">Logout</button>
                 </div>
-                <div ng-if="!user">
+
+                <div ng-if="user" class="alert alert-success">
+                    <h5>Welcome, <strong>{{ user.name }}</strong></h5>
+                    <p class="mb-0"><strong>Email:</strong> {{ user.email }}</p>
+                </div>
+
+                <div ng-if="!user && !loading" class="alert alert-info">
                     <p>Loading user information...</p>
-                    <button class="btn btn-secondary" ng-click="getUser()">Refresh</button>
+                    <button class="btn btn-sm btn-secondary" ng-click="getUser()">Refresh</button>
+                </div>
+
+                <div ng-if="loading" class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <div ng-if="!loading && !barang" class="mt-4">
+                    <h4>Master Data Barang</h4>
+                    <button class="btn btn-success" ng-click="tambahBarang()" ng-disabled="loading">Tambah
+                        Barang</button>
+                    <button class="btn btn-primary" ng-click="transaksiBarang()" ng-disabled="loading">Transaksi
+                        Barang</button>
+                    <div class="table-responsive tabel-barang">
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama Barang</th>
+                                    <th>Kategori</th>
+                                    <th>Satuan</th>
+                                    <th>Harga Beli</th>
+                                    <th>Harga Jual</th>
+                                    <th>Stok</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="barangList.length === 0">
+                                    <td colspan="8" class="text-center">Tidak ada data barang.</td>
+                                </tr>
+                                <tr ng-repeat="b in barangList">
+                                    <td>{{ b.kode_barang }}</td>
+                                    <td>{{ b.nama_barang }}</td>
+                                    <td>{{ b.kategori }}</td>
+                                    <td>{{ b.satuan }}</td>
+                                    <td>Rp {{ b.harga_beli | number }}</td>
+                                    <td>Rp {{ b.harga_jual | number }}</td>
+                                    <td>{{ b.stok }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-warning me-1"
+                                            ng-click="editBarang(b)">Edit</button>
+                                        <button class="btn btn-sm btn-danger"
+                                            ng-click="deleteBarang(b.id)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-between align-items-center mt-3"
+                        ng-if="pagination.last_page > 1">
+                        <div>
+                            Halaman {{ pagination.current_page }} dari {{ pagination.last_page }}
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-secondary btn-sm" ng-disabled="!pagination.prev_page_url"
+                                ng-click="getBarang(pagination.prev_page_url)">Sebelumnya</button>
+                            <button class="btn btn-outline-secondary btn-sm ms-2"
+                                ng-disabled="!pagination.next_page_url"
+                                ng-click="getBarang(pagination.next_page_url)">Selanjutnya</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    // Load user data when dashboard view is shown
-    var mainCtrl = angular.element('[ng-controller="MainController"]').scope();
-    mainCtrl.getUser();
-</script>

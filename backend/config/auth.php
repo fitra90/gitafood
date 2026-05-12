@@ -40,12 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-    ],
 
-    'api' => [
-        'driver' => 'token',
-        'provider' => 'users',
-        'hash' => false, // or true if you want hashed tokens
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false, // or true if you want hashed tokens
+        ],
     ],
 
     /*

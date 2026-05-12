@@ -72,5 +72,3 @@ Works in all modern browsers (Chrome, Firefox, Safari, Edge).
 ## Notes
 
 - The frontend uses localStorage to store the API token
-- Make sure your backend has CORS enabled for cross-origin requests
-- The API guard should be `auth:api` for token-based authentication

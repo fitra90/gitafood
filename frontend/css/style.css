@@ -54,6 +54,10 @@ body {
     max-width: 1200px;
 }
 
+.tabel-barang {
+    margin-top: 15px;
+}
+
 [ng-cloak] {
     display: none;
 }
