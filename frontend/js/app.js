@@ -18,6 +18,22 @@ gitafoodApp.config(['$routeProvider', '$locationProvider', function ($routeProvi
             templateUrl: 'views/dashboard.html',
             controller: 'MainController'
         })
+        .when('/form', {
+            templateUrl: 'views/form.html',
+            controller: 'FormBarangController'
+        })
+        .when('/form/:id', {
+            templateUrl: 'views/form.html',
+            controller: 'FormBarangController'
+        })
+        .when('/transaksi', {
+            templateUrl: 'views/transaksi.html',
+            controller: 'TransaksiController'
+        })
+        .when('/transaksi/form', {
+            templateUrl: 'views/formTransaksi.html',
+            controller: 'FormTransaksiController'
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -30,10 +46,9 @@ gitafoodApp.run(['$rootScope', '$window', '$location', function ($rootScope, $wi
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
         var token = $window.localStorage.getItem('api_token');
         var isLoginPage = next.$$route && next.$$route.originalPath === '/';
-        var isDashboardPage = next.$$route && next.$$route.originalPath === '/dashboard';
 
-        // Block access to dashboard without token
-        if (isDashboardPage && !token) {
+        // Block access to any page other than login if without token
+        if (!isLoginPage && !token) {
             event.preventDefault();
             $location.path('/');
             return;
@@ -85,4 +100,30 @@ gitafoodApp.factory('AuthInterceptor', ['$q', '$window', function ($q, $window) 
 
 gitafoodApp.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('AuthInterceptor');
+}]);
+
+// Navbar Controller for app-wide navigation logic
+gitafoodApp.controller('NavbarController', ['$scope', '$http', '$window', '$location', 'API_URL', function ($scope, $http, $window, $location, API_URL) {
+    $scope.isLoggedIn = function() {
+        return !!$window.localStorage.getItem('api_token');
+    };
+
+    $scope.logout = function () {
+        var token = $window.localStorage.getItem('api_token');
+        if (!token) {
+            completeLogout();
+            return;
+        }
+
+        $http.post(API_URL + '/logout').then(function () {
+            completeLogout();
+        }).catch(function () {
+            completeLogout();
+        });
+
+        function completeLogout() {
+            $window.localStorage.removeItem('api_token');
+            $location.path('/').replace();
+        }
+    };
 }]);

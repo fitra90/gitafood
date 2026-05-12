@@ -21,6 +21,7 @@ use App\Http\Controllers\TransaksiBarangController;
 Route::get('/', function () {
     return response()->json(['message' => 'running']);
 });
+Route::post('/login', [LoginController::class, 'login']);
 
 // Protected routes (require api_token)
 Route::middleware('auth:api')->group(function () {
@@ -29,6 +30,8 @@ Route::middleware('auth:api')->group(function () {
 
     // Barang
     Route::get('/barang', [BarangController::class, 'index']);
+    Route::post('/barang', [BarangController::class, 'store']);
+    Route::get('/barang/{barang}', [BarangController::class, 'show']);
     Route::put('/barang/{barang}', [BarangController::class, 'update']);
     Route::delete('/barang/{barang}', [BarangController::class, 'destroy']);
 

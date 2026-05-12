@@ -14,16 +14,13 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        // Validate input
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
-        // Find user by email
         $user = User::where('email', $request->email)->first();
 
-        // Check if user exists and password is correct
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Invalid credentials'
@@ -49,9 +46,6 @@ class LoginController extends Controller
         return response()->json($request->user());
     }
 
-    /**
-     * Logout user
-     */
     public function logout(Request $request)
     {
         $user = $request->user();

@@ -49,35 +49,6 @@ gitafoodApp.controller('MainController', ['$scope', '$http', '$window', '$locati
         });
     };
 
-    // Logout function
-    $scope.logout = function () {
-        var token = $window.localStorage.getItem('api_token');
-        $scope.loading = true;
-
-        if (token) {
-            // Call logout endpoint
-            $http.post(API_URL + '/logout').then(function (response) {
-                completeLogout();
-            }).catch(function (error) {
-                // Even if logout fails, clear local token
-                completeLogout();
-            });
-        } else {
-            completeLogout();
-        }
-
-        function completeLogout() {
-            $window.localStorage.removeItem('api_token');
-            $scope.isLoggedIn = false;
-            $scope.user = null;
-            $scope.loading = false;
-            $scope.email = '';
-            $scope.password = '';
-
-            $location.path('/').replace();
-        }
-    };
-
     // Get user info
     $scope.getUser = function () {
         $http.get(API_URL + '/user').then(function (response) {
@@ -124,7 +95,15 @@ gitafoodApp.controller('MainController', ['$scope', '$http', '$window', '$locati
     };
     
     $scope.editBarang = function (barang) {
-        alert('Fitur edit untuk ' + barang.nama_barang + ' belum diimplementasikan dengan Form UI khusus. Bisa dikembangkan lebih lanjut.');
+        $location.path('/form/' + barang.id);
+    };
+
+    $scope.tambahBarang = function () {
+        $location.path('/form');
+    };
+
+    $scope.transaksiBarang = function () {
+        $location.path('/transaksi');
     };
 
     // Initialize on controller load

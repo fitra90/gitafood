@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="card-title mb-0">Form Transaksi Barang</h2>
+                    <button class="btn btn-secondary" ng-click="kembali()" ng-disabled="loading">Kembali</button>
+                </div>
+
+                <div ng-if="errorMessage" class="alert alert-danger">
+                    {{ errorMessage }}
+                </div>
+
+                <div ng-if="successMessage" class="alert alert-success">
+                    {{ successMessage }}
+                </div>
+
+                <form ng-submit="submitForm()" name="transaksiForm" novalidate>
+                    <div class="mb-3">
+                        <label class="form-label">Barang</label>
+                        <select class="form-select" ng-model="formData.barang_id" ng-options="b.id as (b.kode_barang + ' - ' + b.nama_barang + ' (Stok: ' + b.stok + ')') for b in barangList" required ng-change="checkStok()">
+                            <option value="">-- Pilih Barang --</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Tipe Transaksi</label>
+                        <select class="form-select" ng-model="formData.tipe_transaksi" required ng-change="checkStok()">
+                            <option value="masuk">Masuk (Penambahan Stok)</option>
+                            <option value="keluar">Keluar (Pengurangan Stok)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Kuantitas</label>
+                        <input type="number" class="form-control" ng-class="{'is-invalid': stokError}" ng-model="formData.kuantitas" min="1" required ng-change="checkStok()">
+                        <div class="invalid-feedback" ng-if="stokError">
+                            Kuantitas melebihi stok barang yang tersedia ({{ currentStok }}).
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Keterangan (Opsional)</label>
+                        <textarea class="form-control" ng-model="formData.keterangan" rows="3"></textarea>
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary" ng-disabled="transaksiForm.$invalid || loading || stokError">
+                            <span ng-if="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            Simpan Transaksi
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
