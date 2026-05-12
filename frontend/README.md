@@ -1,74 +1,60 @@
 # GitaFood Frontend - AngularJS 1.8
 
-A simple AngularJS 1.8 frontend with Bootstrap 5 for the GitaFood application.
+Aplikasi frontend AngularJS 1.8 dengan Bootstrap 5 untuk GitaFood Inventory System.
 
 ## Project Structure
 
 ```
 frontend/
-├── index.html              # Main entry point
-├── package.json            # Project dependencies
+├── index.html                  # Main entry point (Navbar & App Container)
 ├── js/
-│   ├── app.js              # AngularJS app and routing
+│   ├── app.js                  # Routing, Route Guards, HTTP Interceptor, Constant
 │   └── controllers/
-│       └── mainController.js
+│       ├── mainController.js         # Menangani Dashboard & Master Barang
+│       ├── formBarangController.js   # Menangani Form Tambah/Edit Barang
+│       ├── transaksiController.js    # Menangani Data Riwayat Transaksi
+│       └── formTransaksiController.js# Menangani Form Input Transaksi Baru
 ├── css/
-│   └── style.css           # Custom styles
+│   └── style.css               # Custom styles
 └── views/
-    ├── home.html           # Login page
-    └── dashboard.html      # Dashboard page
+    ├── home.html               # Halaman Login
+    ├── dashboard.html          # Dashboard (Tabel Master Barang)
+    ├── form.html               # Form Master Barang
+    ├── transaksi.html          # Tabel Riwayat Transaksi
+    └── formTransaksi.html      # Form Tambah Transaksi
 ```
 
-## Setup
+## Setup & Menjalankan Aplikasi
 
-1. **Install dependencies** (optional, for local development server):
+Aplikasi ini menggunakan HTML statis murni sehingga tidak perlu di-_build_ (seperti Webpack/Vite).
+
+1. Buka terminal dan masuk ke folder `frontend`.
+2. Jalankan lokal server ringan (contoh menggunakan `http-server` via npx):
    ```bash
-   npm install
-   npm start
-   ```
-
-2. **Run directly** (if using a web server):
-   - Place the `frontend` folder in your web root
-   - Open `http://localhost/frontend/` in your browser
-
-3. **For local development**:
-   ```bash
-   cd frontend
    npx http-server -p 8080
    ```
+3. Buka browser dan akses `http://localhost:8080`
 
-   Then visit `http://localhost:8080`
+## Konfigurasi API Endpoint
 
-## Features
-
-- **Login Page**: Email/password authentication
-- **Dashboard**: Displays logged-in user info
-- **Token Management**: Stores API token in localStorage
-- **HTTP Interceptor**: Automatically includes token in API requests
-- **Bootstrap 5**: Responsive UI components
-- **AngularJS Routing**: Single-page application with ngRoute
-
-## Backend API Configuration
-
-Update the API endpoint in `js/controllers/mainController.js`:
+API URL diatur menggunakan *Constant* di dalam `js/app.js`:
 
 ```javascript
-$http.post('http://localhost:8000/api/login', {...})
+gitafoodApp.constant('API_URL', 'http://localhost:8000/api');
 ```
+Pastikan `localhost:8000` sesuai dengan port Laravel backend yang Anda jalankan.
 
-Change `localhost:8000` to your actual backend URL.
+## Kredensial Login Default
 
-## Login Credentials
-
+Pastikan backend sudah menjalankan `php artisan db:seed`.
 ```
 Email: admin@example.com
-Password: admin
+Password: password
 ```
 
-## Browser Compatibility
+## Fitur Utama
 
-Works in all modern browsers (Chrome, Firefox, Safari, Edge).
-
-## Notes
-
-- The frontend uses localStorage to store the API token
+- **Authentication**: Login, Logout (dengan Route Guards untuk mencegah akses tanpa Token).
+- **Master Data Barang**: CRUD Data Barang lengkap dengan paginasi.
+- **Transaksi Inventaris**: Pencatatan Barang Masuk & Keluar dengan validasi otomatis terhadap Stok Master.
+- **Token Management**: JWT Token tersimpan aman di `localStorage` dan diinjeksi via `AuthInterceptor`.
